@@ -18,11 +18,27 @@ void main() {
       expect(find.text('Item 0'), findsOneWidget);
       await tester.fling(
         find.byType(ListView),
-        const Offset(0, -200),
-        3000,
+        const Offset(0, -100),
+        1000,
       );
       await tester.pumpAndSettle();
       expect(find.text('Item 0'), findsNothing);
+    });
+
+    testWidgets('After tapping the favorite icon changes', (tester) async {
+      await tester.pumpWidget(loadScreen(const HomePage()));
+
+      expect(find.text('Item 0'), findsOneWidget);
+
+      await tester.tap(find.byKey(const Key('icon_0')));
+      await tester.pumpAndSettle();
+
+      expect(find.byIcon(Icons.favorite), findsNWidgets(1));
+
+      await tester.tap(find.byKey(const Key('icon_1')));
+      await tester.pumpAndSettle();
+
+      expect(find.byIcon(Icons.favorite), findsNWidgets(2));
     });
   });
 }

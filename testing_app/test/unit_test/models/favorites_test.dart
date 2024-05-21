@@ -8,7 +8,11 @@ void main() {
     test('A new item should be added', () {
       var number = 35;
       favorites.add(number);
-      expect(favorites.items.contains(number), true);
+      expect(
+        favorites.items.contains(number),
+        true,
+        reason: 'Value not expected',
+      );
     });
 
     test('An item should be removed', () {
